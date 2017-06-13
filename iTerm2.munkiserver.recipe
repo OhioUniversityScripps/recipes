@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>Description</key>
+		<string>Downloads the current installation package for iTerm2 and uploads it to munkiserver.</string>
+		<key>Identifier</key>
+		<string>edu.ohio.scrippscollege.recipes.munkiserver.iTerm2</string>
+		<key>Input</key>
+		<dict/>
+		<key>MinimumVersion</key>
+		<string>0.2.0</string>
+		<key>ParentRecipe</key>
+		<string>com.github.keeleysam.autopkg.download.iTerm2</string>
+		<key>Process</key>
+		<array>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>archive_path</key>
+					<string>%pathname%</string>
+					<key>destination_path</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+					<key>purge_destination</key>
+					<true/>
+				</dict>
+				<key>Processor</key>
+				<string>Unarchiver</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>dmg_path</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+					<key>dmg_root</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				</dict>
+				<key>Processor</key>
+				<string>DmgCreator</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>package_file</key>
+					<string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+				</dict>
+				<key>Processor</key>
+				<string>MunkiServerUploader</string>
+			</dict>
+		</array>
+	</dict>
+</plist>

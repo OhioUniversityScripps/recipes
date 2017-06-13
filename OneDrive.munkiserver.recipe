@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Description</key>
+    <string>Downloads the current release version of Microsoft One Drive and uploads it to munkiserver.</string>
+    <key>Identifier</key>
+    <string>com.github.ohiouniversityscripps.recipes.munkiserver.OneDrive</string>
+    <key>Input</key>
+    <dict>
+      <key>NAME</key>
+      <string>OneDrive</string>
+      <key>pkginfo</key>
+      <dict>
+        <key>catalogs</key>
+        <array>
+          <string>Staging</string>
+        </array>
+        <key>display_name</key>
+        <string>Microsoft OneDrive</string>
+        <key>name</key>
+        <string>%NAME%</string>
+        <key>unattended_install</key>
+        <true/>
+      </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.3.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apettinen.download.MSOneDrive</string>
+    <key>Process</key>
+    <array>
+      <dict>
+        <key>Processor</key>
+        <string>DmgCreator</string>
+        <key>Arguments</key>
+        <dict>
+          <key>dmg_megabytes</key>
+          <string>300</string>
+          <key>dmg_root</key>
+          <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+          <key>dmg_path</key>
+          <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Processor</key>
+        <string>MunkiServerUploader</string>
+        <key>Arguments</key>
+        <dict>
+          <key>package_file</key>
+          <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+        </dict>
+      </dict>
+    </array>
+  </dict>
+</plist>
